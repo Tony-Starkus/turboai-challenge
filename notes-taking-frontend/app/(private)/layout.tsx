@@ -9,13 +9,14 @@ import { LoadingState, LogoutIcon, PlusIcon } from '@/components/notes/ui';
 import { useSessionSync } from '@/hooks/use-session-sync';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { beginNotesLoading, clearNotes, setNotes, setNotesError } from '@/store/notes-slice';
+import { getAuthSession, getAuthStatus } from '@/store/auth-slice';
 
 export default function PrivateLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const syncSession = useSessionSync();
-  const session = useAppSelector((state) => state.auth.session);
-  const bootStatus = useAppSelector((state) => state.auth.status);
+  const session = useAppSelector(getAuthSession);
+  const bootStatus = useAppSelector(getAuthStatus);
   const [isRouting, startRouting] = useTransition();
 
   useEffect(() => {

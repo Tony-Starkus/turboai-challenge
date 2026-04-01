@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { addNote, removeNote, updateNote as updateStoredNote } from '@/store/notes-slice';
+import { addNote, getNotes, removeNote, updateNote as updateStoredNote } from '@/store/notes-slice';
 import { getCategories } from '@/store/notes-slice';
 import { NOTE_CATEGORIES, type Note, type NoteCategory } from '@/lib/api';
 import { createNoteRequest, updateNoteRequest, deleteNoteRequest } from '@/services/note';
@@ -39,7 +39,7 @@ const NoteModal: React.FC<{
   const modalRef = useRef<HTMLDivElement | null>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
   const categories = useAppSelector(getCategories);
-  const notes = useAppSelector((s) => s.notes.items);
+  const notes = useAppSelector(getNotes);
   const dispatch = useAppDispatch();
   const isNew = routeNoteId === 'new';
 

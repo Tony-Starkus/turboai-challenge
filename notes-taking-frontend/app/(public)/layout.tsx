@@ -1,33 +1,30 @@
-"use client";
+'use client';
 
-import type { ReactNode } from "react";
-import { useEffect, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import type { ReactNode } from 'react';
+import { useEffect, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { LoadingState } from "@/components/notes/ui";
-import { useAppSelector } from "@/store/hooks";
+import { LoadingState } from '@/components/notes/ui';
+import { useAppSelector } from '@/store/hooks';
+import { getAuthSession, getAuthStatus } from '@/store/auth-slice';
 
-export default function PublicLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function PublicLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const session = useAppSelector((state) => state.auth.session);
-  const bootStatus = useAppSelector((state) => state.auth.status);
+  const session = useAppSelector(getAuthSession);
+  const bootStatus = useAppSelector(getAuthStatus);
   const [isRouting, startRouting] = useTransition();
 
   useEffect(() => {
-    if (bootStatus !== "ready" || !session) {
+    if (bootStatus !== 'ready' || !session) {
       return;
     }
 
     startRouting(() => {
-      router.replace("/");
+      router.replace('/');
     });
   }, [bootStatus, router, session]);
 
-  if (bootStatus === "booting") {
+  if (bootStatus === 'booting') {
     return <LoadingState label="Checking your session..." />;
   }
 

@@ -26,6 +26,11 @@ const selectVariants = cva(
   },
 );
 
+type OptionProps = {
+  value?: string;
+  children?: React.ReactNode;
+};
+
 interface SelectOptionProps {
   value: string;
   children: React.ReactNode;
@@ -66,12 +71,17 @@ const Select: React.FC<SelectProps> = ({
   }, []);
 
   const parsedOptions: Array<{ value: string; node: React.ReactNode }> = [];
+
   React.Children.forEach(children, (child) => {
-    if (!React.isValidElement(child)) return;
-    // Accept our Option component or any element with a "value" prop
-    const childValue = child.props?.value;
+    if (!React.isValidElement<OptionProps>(child)) return;
+
+    const childValue = child.props.value;
+
     if (typeof childValue === 'string') {
-      parsedOptions.push({ value: childValue, node: child.props.children });
+      parsedOptions.push({
+        value: childValue,
+        node: child.props.children,
+      });
     }
   });
 

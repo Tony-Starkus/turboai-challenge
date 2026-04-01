@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { Session } from "@/lib/api";
+import type { Session } from '@/lib/api';
 
-export type AuthStatus = "booting" | "ready";
+export type AuthStatus = 'booting' | 'ready';
 
 type AuthState = {
   session: Session | null;
@@ -11,23 +11,23 @@ type AuthState = {
 
 const initialState: AuthState = {
   session: null,
-  status: "booting",
+  status: 'booting',
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     finishBoot(state) {
-      state.status = "ready";
+      state.status = 'ready';
     },
     setSession(state, action: PayloadAction<Session>) {
       state.session = action.payload;
-      state.status = "ready";
+      state.status = 'ready';
     },
     clearSession(state) {
       state.session = null;
-      state.status = "ready";
+      state.status = 'ready';
     },
   },
 });
@@ -35,3 +35,6 @@ const authSlice = createSlice({
 export const { clearSession, finishBoot, setSession } = authSlice.actions;
 
 export default authSlice.reducer;
+
+export const getAuthSession = (state: { auth: AuthState }) => state.auth.session;
+export const getAuthStatus = (state: { auth: AuthState }) => state.auth.status;

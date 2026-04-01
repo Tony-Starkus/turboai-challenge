@@ -80,7 +80,7 @@ const notesSlice = createSlice({
     },
     setCategories(
       state,
-      action: PayloadAction<Array<{ key: string; label: string; value: string; color?: string | null; count: number }>>,
+      action: PayloadAction<Array<{ key: string; label: string; value: NoteCategory; color: string; count: number }>>,
     ) {
       state.categories = action.payload;
     },
