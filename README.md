@@ -111,6 +111,32 @@ What is already in place:
 
 ## Running The Project
 
+Before running either project, copy the example environment file to a real `.env` file in each project directory.
+
+On macOS / Linux:
+
+```bash
+# Backend
+cd notes-taking-backend
+cp .env.example .env
+
+# Frontend
+cd ../notes-taking-frontend
+cp .env.example .env
+```
+
+On Windows (PowerShell):
+
+```powershell
+# Backend
+cd notes-taking-backend
+Copy-Item .env.example .env
+
+# Frontend
+cd ..\notes-taking-frontend
+Copy-Item .env.example .env
+```
+
 Backend:
 
 ```bash
