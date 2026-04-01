@@ -43,16 +43,33 @@ const notesSlice = createSlice({
     },
     addNote(state, action: PayloadAction<Note>) {
       state.items = orderNotes([action.payload, ...state.items]);
+      // increment category count if present
+      const cat = state.categories.find((c) => c.value === action.payload.category);
+      if (cat) cat.count = Math.max(0, cat.count + 1);
       state.status = 'ready';
       state.error = null;
     },
     updateNote(state, action: PayloadAction<Note>) {
+      // find previous note to adjust category counts if category changed
+      const prev = state.items.find((n) => n.id === action.payload.id) ?? null;
+      if (prev && prev.category !== action.payload.category) {
+        const prevCat = state.categories.find((c) => c.value === prev.category);
+        if (prevCat) prevCat.count = Math.max(0, prevCat.count - 1);
+        const newCat = state.categories.find((c) => c.value === action.payload.category);
+        if (newCat) newCat.count = Math.max(0, newCat.count + 1);
+      }
+
       state.items = orderNotes(state.items.map((note) => (note.id === action.payload.id ? action.payload : note)));
       state.status = 'ready';
       state.error = null;
     },
     removeNote(state, action: PayloadAction<number>) {
+      const removed = state.items.find((note) => note.id === action.payload) ?? null;
       state.items = state.items.filter((note) => note.id !== action.payload);
+      if (removed) {
+        const cat = state.categories.find((c) => c.value === removed.category);
+        if (cat) cat.count = Math.max(0, cat.count - 1);
+      }
       state.status = 'ready';
       state.error = null;
     },
@@ -88,6 +105,9 @@ export const {
 export default notesSlice.reducer;
 
 export const getCategories = (state: { notes: NotesState }) => state.notes.categories;
+export const getNotes = (state: { notes: NotesState }) => state.notes.items;
+export const getNotesStatus = (state: { notes: NotesState }) => state.notes.status;
+export const getNotesError = (state: { notes: NotesState }) => state.notes.error;
 
 function orderNotes(notes: Note[]) {
   return [...notes].sort(

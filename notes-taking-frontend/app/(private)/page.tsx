@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { type Note, type NoteCategory } from '@/lib/api';
 import { formatTinyDate, joinClasses } from '@/components/notes/ui';
 import { useAppSelector } from '@/store/hooks';
-import { getCategories } from '@/store/notes-slice';
+import { getCategories, getNotes, getNotesStatus, getNotesError } from '@/store/notes-slice';
 import Image from 'next/image';
 import NoteModal from '@/components/notes/NoteModal';
 import { hexToRgba } from '@/lib/utils';
@@ -41,9 +41,9 @@ const categoryDetails: Record<
 export function DashboardRoutePage({ routeNoteId = null }: { routeNoteId?: string | null }) {
   const router = useRouter();
   const categories = useAppSelector(getCategories);
-  const notes = useAppSelector((state) => state.notes.items);
-  const notesStatus = useAppSelector((state) => state.notes.status);
-  const notesError = useAppSelector((state) => state.notes.error);
+  const notes = useAppSelector(getNotes);
+  const notesStatus = useAppSelector(getNotesStatus);
+  const notesError = useAppSelector(getNotesError);
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>('All');
   const [isRouting, startRouting] = useTransition();
 
@@ -83,10 +83,10 @@ export function DashboardRoutePage({ routeNoteId = null }: { routeNoteId?: strin
               key={category.value}
               type="button"
               className={joinClasses(
-                'mt-4 flex w-full p-2 items-start gap-3 rounded-[22px] border text-left transition duration-200',
+                'mt-4 flex w-full p-2 items-start gap-3 rounded-[22px] border text-left transition duration-200 cursor-pointer',
                 activeFilter === category.value
                   ? 'border-border-strong bg-white/80 shadow-[0_14px_26px_rgba(68,49,31,0.08)]'
-                  : 'border-transparent bg-white/35 hover:border-border hover:bg-white/60',
+                  : 'border-transparent  hover:border-border hover:bg-white/60',
               )}
               onClick={() => setActiveFilter(category.value)}
             >
@@ -155,7 +155,7 @@ const NoteCard: React.FC<{ note: Note; index: number; onOpen: () => void }> = ({
   return (
     <button
       type="button"
-      className="sticky-note flex min-h-55 flex-col text-left"
+      className="sticky-note flex min-h-55 flex-col text-left cursor-pointer"
       data-tone={category.tone}
       onClick={onOpen}
       style={
@@ -175,7 +175,7 @@ const NoteCard: React.FC<{ note: Note; index: number; onOpen: () => void }> = ({
         <h3 className="line-clamp-2 text-xl font-semibold tracking-tight text-[rgba(25,20,15,0.9)]">
           <span className="font-hand text-[1.45rem] leading-none">{note.title}</span>
         </h3>
-        <p className="mt-3 line-clamp-5 text-sm leading-6 text-[rgba(36,29,22,0.72)]">{note.content}</p>
+        <p className="mt-3 line-clamp-5 break-all text-sm leading-6 text-[rgba(36,29,22,0.72)]">{note.content}</p>
       </div>
     </button>
   );

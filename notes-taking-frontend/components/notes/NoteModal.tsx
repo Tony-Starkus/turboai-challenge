@@ -246,7 +246,7 @@ const NoteModal: React.FC<{
         ) : (
           <form className="flex min-h-0 flex-1 flex-col px-5" onSubmit={handleSubmit(onSubmit)}>
             <div
-              className="soft-scroll min-h-0 flex-1 overflow-y-auto px-5 py-5 md:px-7 md:py-6 border-2 rounded-2xl"
+              className="soft-scroll overflow-hidden! min-h-0 flex-1 overflow-y-auto px-5 py-5 md:px-7 md:py-6 border-2 rounded-2xl"
               style={{
                 borderColor: selectedMeta?.color,
                 backgroundColor: hexToRgba(selectedMeta?.color ?? '#ffffff', 0.06),
@@ -257,8 +257,8 @@ const NoteModal: React.FC<{
                   Last edited: {formatDate(activeNote.last_edited_at)}
                 </div>
               )}
-              <div className="grid gap-5">
-                <div className="space-y-5">
+              <div className="flex flex-col gap-5 min-h-0 h-full">
+                <div className="flex flex-col min-h-0 gap-5 flex-1">
                   <input
                     id="note-title"
                     {...register('title')}
@@ -275,7 +275,7 @@ const NoteModal: React.FC<{
                   <textarea
                     id="note-content"
                     {...register('content')}
-                    className="w-full bg-transparent border-0 p-0 text-sm leading-6 min-h-70 resize-none placeholder:text-ink-soft focus:ring-0 focus:outline-none"
+                    className="w-full bg-transparent border-0 p-0 text-sm leading-6 min-h-0 flex-1 resize-none placeholder:text-ink-soft focus:ring-0 focus:outline-none"
                     placeholder="Write everything down here..."
                   />
                 </div>

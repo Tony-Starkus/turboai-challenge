@@ -84,32 +84,6 @@ select {
   overflow: hidden;
 }
 
-.app-shell::before,
-.app-shell::after {
-  position: absolute;
-  content: '';
-  inset: auto;
-  border-radius: 999px;
-  pointer-events: none;
-  filter: blur(12px);
-}
-
-.app-shell::before {
-  top: 5rem;
-  left: -4rem;
-  width: 12rem;
-  height: 12rem;
-  background: rgba(239, 156, 102, 0.18);
-}
-
-.app-shell::after {
-  right: -3rem;
-  bottom: 6rem;
-  width: 14rem;
-  height: 14rem;
-  background: rgba(120, 171, 168, 0.14);
-}
-
 .surface-panel {
   border: 1px solid var(--border);
   background: var(--paper-muted);
@@ -119,7 +93,7 @@ select {
 
 .soft-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(83, 62, 40, 0.18) transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 .soft-scroll::-webkit-scrollbar {
@@ -132,7 +106,13 @@ select {
 
 .soft-scroll::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgba(83, 62, 40, 0.18);
+  background: var(--border-strong);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.soft-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(83, 62, 40, 0.42);
 }
 
 .btn-base {
@@ -216,18 +196,6 @@ select {
   transform: translateY(0px);
   box-shadow: 0 24px 38px rgba(54, 38, 20, 0.18);
   filter: saturate(1.02);
-}
-
-.sticky-note::after {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 999px;
-  content: '';
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24);
 }
 
 .note-badge {
