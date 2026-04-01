@@ -146,6 +146,34 @@ docker compose up -d
 .venv/bin/python manage.py runserver
 ```
 
+Create and activate a Python virtual environment for the backend (Python 3.13.3 required):
+
+On macOS / Linux (with `python3.13` available):
+
+```bash
+# from the repository root
+cd notes-taking-backend
+python3.13 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+On Windows (PowerShell) using Python 3.13:
+
+```powershell
+cd notes-taking-backend
+py -3.13 -m venv .venv
+. .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Verify the active Python version:
+
+```bash
+python --version
+# should print: Python 3.13.3
+```
+
 Run backend authentication tests:
 
 ```bash
