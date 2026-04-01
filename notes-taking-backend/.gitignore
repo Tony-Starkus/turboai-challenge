@@ -64,7 +64,6 @@ venv.bak/
 
 # Environment variables file
 .env
-.env.*
 
 # macOS
 .DS_Store
