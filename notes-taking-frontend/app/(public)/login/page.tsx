@@ -86,7 +86,7 @@ export default function LoginPage() {
           <div className="mx-auto w-full max-w-md">
             <Image src="/assets/images/cactus.png" className="block m-auto" alt="Cat" width={95} height={113} />
 
-            <h1 className="text-3xl pt-10 font-semibold uppercase tracking-[0.24em] text-ink-soft text-center">
+            <h1 className="text-3xl font-serif-display pt-10 font-semibold uppercase tracking-[0.24em] text-ink-soft text-center">
               Yay, You&apos;re Back!
             </h1>
 

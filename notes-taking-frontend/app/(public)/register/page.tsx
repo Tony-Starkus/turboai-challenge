@@ -86,7 +86,7 @@ export default function RegisterPage() {
           <div className="mx-auto w-full max-w-md">
             <Image src="/assets/images/cat.png" className="block m-auto" alt="Cat" width={200} height={200} />
 
-            <h1 className="text-3xl font-semibold uppercase tracking-[0.24em] text-ink-soft text-center">
+            <h1 className="text-3xl font-serif-display font-semibold uppercase tracking-[0.24em] text-ink-soft text-center">
               Yay, New Friend!
             </h1>
 
