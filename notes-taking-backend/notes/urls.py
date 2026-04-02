@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import NoteViewSet, CategoriesView
+from .views import NoteViewSet, CategoryView
 
 app_name = "notes"
 
@@ -10,5 +10,5 @@ router.register("", NoteViewSet, basename="notes")
 
 # Ensure the explicit categories route is checked before the router's detail route
 urlpatterns = [
-	path("categories/", CategoriesView.as_view(), name="categories"),
+	path("categories/", CategoryView.as_view(), name="categories"),
 ] + router.urls
